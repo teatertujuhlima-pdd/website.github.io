@@ -69,7 +69,6 @@
       pointer-events: none;
       visibility: hidden;
     }
-    /* Fast curtain mode when switching to heavy tabs like Pemeran & Kru */
     .curtain-preloader.quick-transition {
       transition: visibility 0.1s linear 0.65s;
     }
@@ -629,9 +628,9 @@
       background: linear-gradient(135deg, #a8131b 0%, #68090d 100%);
       color: #fff;
       border: 1px solid rgba(255, 210, 210, 0.22);
-      padding: 14px 30px;
-      font: 600 0.84rem 'Inter', system-ui;
-      letter-spacing: 0.11em;
+      padding: 14px 26px;
+      font: 600 0.82rem 'Inter', system-ui;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       border-radius: 10px;
       cursor: pointer;
@@ -658,7 +657,7 @@
       box-shadow: none;
     }
     .btn.o:hover:not(:disabled) {
-      background: rgba(230, 220, 203, 0.1);
+      background: rgba(230, 220, 203, 0.12);
       border-color: var(--gold);
     }
     .btn.s { padding: 8px 16px; font-size: 0.74rem; border-radius: 8px; }
@@ -793,13 +792,26 @@
       background: linear-gradient(145deg, rgba(28, 10, 16, 0.96), rgba(11, 4, 7, 0.98));
       border: 1px solid rgba(230, 220, 203, 0.28);
       border-radius: 16px;
-      padding: 22px 28px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65);
+    }
+    .checkout-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65);
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(230, 220, 203, 0.12);
+    }
+    .payment-btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      width: 100%;
     }
     .tier-perforation {
       margin: 20px -26px;
@@ -945,7 +957,6 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.42);
-      /* Optimasi render browser agar tidak ngelag saat banyak kartu */
       content-visibility: auto;
       contain-intrinsic-size: 210px 290px;
       transform: translateZ(0);
@@ -1286,10 +1297,14 @@
         padding-top: 20px;
       }
       .unified-checkout-bar {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
         padding: 20px;
+      }
+      .checkout-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .payment-btn-group {
+        grid-template-columns: 1fr;
       }
       .hero-stage {
         min-height: 62vh;
@@ -1402,7 +1417,6 @@
   <!-- Sticky Header Navigation -->
   <nav id="main-nav">
     <a href="#home" class="nav-brand" title="TOLONG SAMPAIKAN BESOK!">
-      <!-- Transparent Logo that docks into the header when scrolling down -->
       <div id="nav-logo-container" class="nav-logo-wrap hidden-in-hero">
         <img id="nav-logo-img" class="nav-logo-canvas" alt="TOLONG SAMPAIKAN BESOK!" style="display:none">
         <canvas id="nav-logo-canvas" class="nav-logo-canvas"></canvas>
@@ -1430,9 +1444,9 @@
 
   <!-- HOME SECTION -->
   <section id="home" class="on" style="padding:0;max-width:none">
-    <!-- Hero Stage loading from local folder assets/hero/ with automatic fallback -->
+    <!-- Hero Stage with Smart Multi-Path Resolver for GitHub Pages -->
     <div class="hero-stage" id="hero-stage">
-      <img id="hero-bg-img" class="hero-bg" alt="Latar Pementasan TOLONG SAMPAIKAN BESOK!" src="assets/hero/background.png" onerror="if(this.src.includes('assets/hero/background.png')){this.src='Background.png';}else{this.style.display='none';}">
+      <img id="hero-bg-img" class="hero-bg" alt="Latar Pementasan TOLONG SAMPAIKAN BESOK!" src="assets/hero/background.png">
       <div class="hero-vignette"></div>
 
       <!-- Centerpiece Logo (scales & docks into header on scroll) -->
@@ -1447,7 +1461,7 @@
     <!-- Clean, Uncluttered Home Content -->
     <div style="max-width:1040px;margin:auto;padding:42px 20px 64px;text-align:center">
 
-      <!-- Official YouTube Trailer Section (Autoplay Guaranteed + Smart Unmute) -->
+      <!-- Official YouTube Trailer Section -->
       <div class="reveal-item">
         <div style="margin-bottom:16px">
           <span class="pill Upcoming" style="margin-bottom:8px">Official Trailer</span>
@@ -1556,7 +1570,7 @@
         <span class="pill Available" style="margin-bottom:10px">Penjualan Dibuka</span>
         <h2>Tiket Pementasan</h2>
         <p style="color:var(--mut);margin:0;font-size:0.96rem">
-          Pilih kategori tiket pementasan <b style="color:var(--gold)">TOLONG SAMPAIKAN BESOK!</b> oleh Teater TujuhLima SMA Negeri 75 Jakarta di bawah ini.
+          Pilih kategori tiket pementasan <b style="color:var(--gold)">TOLONG SAMPAIKAN BESOK!</b> lalu pilih metode pembayaran (<b>QRIS</b> atau <b>Cash</b>) di bawah ini.
         </p>
       </div>
       <div id="tickets-page-card"></div>
@@ -1583,7 +1597,7 @@
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="faq-body">
-              Pembelian tiket dilakukan secara daring dengan menekan tombol <b>Beli Tiket</b> pada halaman Beranda atau memilih paket tiket di halaman <b>Tiket</b>.
+              Buka menu <b>Tiket</b>, pilih paket tiket (1 Tiket Rp15.000 atau 2 Tiket Rp25.000), kemudian pilih tombol pembayaran melalui <b>QRIS</b> atau <b>Cash (Tunai)</b> untuk mengisi formulir pemesanan.
             </div>
           </details>
 
@@ -1659,10 +1673,51 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 
 // Countdown diatur tepat ke 13 November 2026 pukul 13:00 WIB
 const SHOW = new Date('2026-11-13T13:00:00+07:00');
-const TICKET_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf6N5hK41FKGgYwjwn0mpxoJKUMhOWPcgdaD6E9XHBLdVNJgw/viewform?usp=publish-editor';
+
+// Dua Link Google Form Berbeda (QRIS & Cash)
+const TICKET_LINKS = {
+  qris: 'https://docs.google.com/forms/d/e/1FAIpQLSf6N5hK41FKGgYwjwn0mpxoJKUMhOWPcgdaD6E9XHBLdVNJgw/viewform',
+  cash: 'https://docs.google.com/forms/d/e/1FAIpQLSd87ADc4tgHjN2LNrakDG_j-RQXZydo_Vs9Kw3Z4MjIxyIUpA/viewform?usp=dialog'
+};
 
 /* ==========================================================================
-   0. YOUTUBE AUTOPLAY + SMART AUDIO UNMUTE CONTROLLER
+   0. SMART GITHUB PAGES HERO BACKGROUND RESOLVER (CASE-INSENSITIVE FALLBACK)
+   ========================================================================== */
+(function resolveHeroBackground() {
+  const bgImg = $('#hero-bg-img');
+  if (!bgImg) return;
+
+  // Daftar kemungkinan nama/lokasi file background di repo GitHub
+  const candidates = [
+    'assets/hero/background.png',
+    'assets/hero/Background.png',
+    'assets/hero/background.jpg',
+    'assets/hero/Background.jpg',
+    'assets/hero/background.jpeg',
+    'assets/HERO/background.png',
+    'assets/HERO/Background.png',
+    'assets/background.png',
+    'assets/Background.png',
+    'Background.png',
+    'background.png',
+    'Background.jpg',
+    'background.jpg'
+  ];
+
+  let idx = 0;
+  bgImg.onerror = () => {
+    idx++;
+    if (idx < candidates.length) {
+      bgImg.src = candidates[idx];
+    } else {
+      bgImg.style.display = 'none';
+    }
+  };
+  bgImg.src = candidates[0];
+})();
+
+/* ==========================================================================
+   0A. YOUTUBE AUTOPLAY + SMART AUDIO UNMUTE CONTROLLER
    ========================================================================== */
 let trailerMuted = true;
 
@@ -1706,7 +1761,7 @@ function toggleTrailerSound(e) {
 }
 
 /* ==========================================================================
-   0A. AUTOMATIC STAGE CURTAIN REVEAL PRELOADER & SECTION TRANSITION MASK
+   0B. AUTOMATIC STAGE CURTAIN REVEAL PRELOADER & SECTION TRANSITION MASK
    ========================================================================== */
 const preloaderEl = $('#curtain-preloader');
 
@@ -1726,7 +1781,6 @@ const preloaderEl = $('#curtain-preloader');
     setTimeout(() => {
       preloaderEl.classList.add('opened');
       document.body.classList.remove('curtain-locked');
-      // Pastikan video YouTube diputar saat tirai terbuka
       sendYouTubeCommand('playVideo');
       setTimeout(() => {
         preloaderEl.style.display = 'none';
@@ -1742,7 +1796,6 @@ const preloaderEl = $('#curtain-preloader');
   }
 })();
 
-// Fungsi Tirai Cepat saat berpindah ke tab Pemeran & Kru agar tidak terlihat lag/belum ke-load
 function playQuickCurtainMask(subtitleText, titleText, onMidpoint) {
   if (!preloaderEl) {
     if (onMidpoint) onMidpoint();
@@ -1755,7 +1808,6 @@ function playQuickCurtainMask(subtitleText, titleText, onMidpoint) {
 
   preloaderEl.classList.add('quick-transition');
   preloaderEl.style.display = 'flex';
-  // Paksa reflow singkat lalu tutup tirai
   void preloaderEl.offsetWidth;
   preloaderEl.classList.remove('opened');
 
@@ -1771,7 +1823,7 @@ function playQuickCurtainMask(subtitleText, titleText, onMidpoint) {
 }
 
 /* ==========================================================================
-   0B. FAVICON LOADER (MEMPRIORITASKAN FILE PNG DI FOLDER ASSETS/)
+   0C. FAVICON LOADER (MEMPRIORITASKAN FILE PNG DI FOLDER ASSETS/)
    ========================================================================== */
 (function verifyFavicon() {
   const fav = $('#site-favicon');
@@ -1801,7 +1853,7 @@ function playQuickCurtainMask(subtitleText, titleText, onMidpoint) {
    PENGATURAN HALAMAN UNDER CONSTRUCTION & FOLDER ASET LOKAL
    ========================================================================== */
 const UNDER_CONSTRUCTION = {
-  cast: false,
+  cast: true,
   gallery: true
 };
 
@@ -1820,7 +1872,7 @@ const GL = [
 ];
 
 /* ==========================================================================
-   1. LOGO LOADING (FOLDER LOKAL + AUTO CHROMA-KEY FALLBACK) & STICKY HEADER
+   1. LOGO LOADING (MULTI-PATH FALLBACK + AUTO CHROMA-KEY) & STICKY HEADER
    ========================================================================== */
 function drawFallbackLogo(canvas) {
   const ctx = canvas.getContext('2d');
@@ -1848,6 +1900,16 @@ function drawFallbackLogo(canvas) {
   ctx.fillStyle = '#e6dccb';
   ctx.fillText('13 NOVEMBER 2026 | SMA Negeri 75 Jakarta', 450, 450);
 }
+
+const logoCandidates = [
+  'assets/hero/text-logo.png',
+  'assets/hero/Text-Logo.png',
+  'assets/hero/Text.png',
+  'assets/hero/text.png',
+  'Text.png',
+  'text-logo.png'
+];
+let logoCandidateIdx = 0;
 
 function renderLogoWithBlueRemoval(sourceUrl) {
   const heroCanvas = $('#hero-logo-canvas');
@@ -1939,8 +2001,9 @@ function renderLogoWithBlueRemoval(sourceUrl) {
   };
 
   img.onerror = () => {
-    if (sourceUrl === HERO_ASSETS.textLogo) {
-      renderLogoWithBlueRemoval('Text.png');
+    logoCandidateIdx++;
+    if (logoCandidateIdx < logoCandidates.length) {
+      renderLogoWithBlueRemoval(logoCandidates[logoCandidateIdx]);
     } else {
       drawFallbackLogo(heroCanvas);
       drawFallbackLogo(navCanvas);
@@ -1950,7 +2013,7 @@ function renderLogoWithBlueRemoval(sourceUrl) {
   img.src = sourceUrl;
 }
 
-renderLogoWithBlueRemoval(HERO_ASSETS.textLogo);
+renderLogoWithBlueRemoval(logoCandidates[0]);
 
 /* Smooth Animated Mobile Hamburger Menu Logic */
 const menuToggle = $('#menu-toggle');
@@ -2078,7 +2141,7 @@ const CAST_PROFILES = [
       { name: 'Airi', role: 'Product Desain, Editor Trailer, Coder Website', file: 'assets/PEMERAN/airi.jpg' },
       { name: 'Nicolash', role: 'Editor Trailer, Coder Website', file: 'assets/PEMERAN/nicolash.jpg' },
       { name: 'Fasuyy', role: 'Editor Trailer', file: 'assets/PEMERAN/fasuyy.jpg' },
-      { name: 'Arfan', role: 'Editor', file: 'assets/PEMERAN/arfan.jpg' },
+      { name: 'Arfan', role: 'Editor', file: 'assets/PEMERAN/arfan.jpg' }
     ]
   },
   // PEMERAN (AKTOR & AKTRIS)
@@ -2113,7 +2176,7 @@ const CAST_PROFILES = [
       { name: 'Luna Famasya', role: 'Sebagai Sulis', file: 'assets/PEMERAN/luna.jpg' }
     ]
   }, 
-// Crew
+  // PRODUCER & DIVISI PRODUKSI
   {
     category: 'Producer',
     group: 'Producer',
@@ -2132,13 +2195,10 @@ const CAST_PROFILES = [
       { name: 'Pimpinan Produksi', role: 'Wardah Rayya Aulia, Nuryanti, Vinzi Janya Adi', file: 'assets/PEMERAN/pimpro.jpg' },
       { name: 'Tim Journalistik', role: 'Ni Putu Cahya Bidani Jyotisha Katyayani, Imatun Nisa Karimah, Muhammad Efan Pratama, Muhammad Khairunnas Muttaqin, Dafa Apriliano, Rangga Raditya, Leandra Rizky Billion, Puspita Zhahirah, Keysha Amanina Kirani', file: 'assets/PEMERAN/Journalistik.jpg' },
       { name: 'Tim Prabunation', role: 'Muhammad Rizki Kusnadi, Edward R. Jordan Nazara, Akeno Sulaeman', file: 'assets/PEMERAN/prabu.jpg' }
-     
     ]
   }
 ];
 
-// Preload bertahap (Staggered Background Image Preloader) di belakang layar
-// supaya saat user membuka tab Pemeran & Kru, gambar sudah ada di cache browser
 (function preloadCastImagesInBackground() {
   if (UNDER_CONSTRUCTION.cast) return;
   const allFiles = [...new Set(CAST_PROFILES.flatMap(g => g.members.map(m => m.file)))];
@@ -2162,7 +2222,7 @@ const CAST_PROFILES = [
   }, { once: true });
 })();
 
-let activeCastFilter = 'all'; // 'all' | 'cast' | 'crew'
+let activeCastFilter = 'all';
 
 function getInitials(fullName) {
   const parts = String(fullName || '').trim().split(/\s+/).filter(Boolean);
@@ -2197,7 +2257,8 @@ function renderCastSection() {
 
   const totalCast = CAST_PROFILES.find(x => x.group === 'cast')?.members.length || 0;
   const totalCrew = CAST_PROFILES.find(x => x.group === 'crew')?.members.length || 0;
-  const totalAll = totalCast + totalCrew;
+  const totalProducer = CAST_PROFILES.find(x => x.group === 'Producer')?.members.length || 0;
+  const totalAll = totalCast + totalCrew + totalProducer;
 
   const filterHtml = `
     <p style="color:var(--mut);margin:0 0 18px;font-size:0.95rem">
@@ -2207,6 +2268,7 @@ function renderCastSection() {
       <button class="cast-filter-btn ${activeCastFilter === 'all' ? 'active' : ''}" onclick="setCastFilter('all')">Semua (${totalAll})</button>
       <button class="cast-filter-btn ${activeCastFilter === 'cast' ? 'active' : ''}" onclick="setCastFilter('cast')">Pemeran (${totalCast})</button>
       <button class="cast-filter-btn ${activeCastFilter === 'crew' ? 'active' : ''}" onclick="setCastFilter('crew')">Kru &amp; Produksi (${totalCrew})</button>
+      <button class="cast-filter-btn ${activeCastFilter === 'Producer' ? 'active' : ''}" onclick="setCastFilter('Producer')">Producer (${totalProducer})</button>
     </div>
   `;
 
@@ -2217,7 +2279,6 @@ function renderCastSection() {
       const cards = sec.members.map((m, mIdx) => {
         const imgId = `cast-img-${cardIndex++}`;
         const initials = getInitials(m.name);
-        // 8 kartu teratas di-load langsung (eager), sisanya async
         const loadMode = mIdx < 8 ? 'eager' : 'lazy';
         return `<div class="profile-card">
           <div class="profile-photo-box" onclick="openCastPhotoModal('${esc(m.name)}', '${esc(m.role)}', '${esc(m.file)}', '${imgId}')">
@@ -2331,7 +2392,7 @@ function renderTicketPassCard() {
           </div>
           <ul style="list-style:none;padding:0;margin:0;color:rgba(239,230,216,0.85);font-size:0.88rem;display:flex;flex-direction:column;gap:8px">
             <li style="display:flex;align-items:center;gap:8px"><span style="color:var(--gold)">✦</span> Berlaku untuk 1 orang penonton</li>
-            <li style="display:flex;align-items:center;gap:8px"><span style="color:var(--gold)">✦</span> Pementasan TOLONG SAMPAIKAN BESOK!</li>
+            <li style="display:flex;align-items:center;gap:8px"><span style="color:var(--gold)">✦</span> Tersedia pembayaran QRIS &amp; Cash</li>
           </ul>
         </div>
       </div>
@@ -2355,25 +2416,38 @@ function renderTicketPassCard() {
           </div>
           <ul style="list-style:none;padding:0;margin:0;color:rgba(239,230,216,0.85);font-size:0.88rem;display:flex;flex-direction:column;gap:8px">
             <li style="display:flex;align-items:center;gap:8px"><span style="color:var(--gold)">✦</span> Berlaku untuk 2 orang penonton</li>
-            <li style="display:flex;align-items:center;gap:8px"><span style="color:var(--gold)">✦</span> Pementasan TOLONG SAMPAIKAN BESOK!</li>
+            <li style="display:flex;align-items:center;gap:8px"><span style="color:var(--gold)">✦</span> Tersedia pembayaran QRIS &amp; Cash</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- Satu Bar Pemesanan Terpadu -->
+    <!-- Bar Pemesanan dengan 2 Pilihan Metode Pembayaran (QRIS & Cash) -->
     <div class="unified-checkout-bar">
-      <div>
-        <div style="font-size:0.74rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--mut);margin-bottom:2px">Pilihan Paket Anda</div>
-        <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-          <span class="sf" style="font-size:1.55rem;color:var(--tx)">${summaryTitle}</span>
-          <span class="sf" style="font-size:1.85rem;color:var(--gold)">${summaryPrice}</span>
+      <div class="checkout-header-row">
+        <div>
+          <div style="font-size:0.74rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--mut);margin-bottom:2px">Pilihan Paket Anda</div>
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <span class="sf" style="font-size:1.55rem;color:var(--tx)">${summaryTitle}</span>
+            <span class="sf" style="font-size:1.9rem;color:var(--gold)">${summaryPrice}</span>
+          </div>
         </div>
+        <span class="pill Available">Pilih Metode Pembayaran</span>
       </div>
-      <a href="${TICKET_FORM_URL}" target="_blank" rel="noopener noreferrer" class="btn" style="min-width:240px">
-        <span>Lanjutkan Pemesanan</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-      </a>
+
+      <div class="payment-btn-group">
+        <!-- Tombol Pembayaran QRIS -->
+        <a href="${TICKET_LINKS.qris}" target="_blank" rel="noopener noreferrer" class="btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Bayar via QRIS</span>
+        </a>
+
+        <!-- Tombol Pembayaran Cash (Tunai) -->
+        <a href="${TICKET_LINKS.cash}" target="_blank" rel="noopener noreferrer" class="btn o">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+          <span>Bayar via Cash (Tunai)</span>
+        </a>
+      </div>
     </div>
   `;
 
@@ -2451,7 +2525,6 @@ function switchSectionDOM(validHash) {
   updateStickyLogoOnScroll();
   requestAnimationFrame(observeReveals);
 
-  // Pause trailer saat pindah ke halaman lain, lanjutkan saat kembali ke Beranda
   if (validHash === 'home') {
     sendYouTubeCommand('playVideo');
   } else {
@@ -2464,7 +2537,6 @@ function route() {
   const validHash = document.getElementById(h) ? h : 'home';
   closeMobileMenu();
 
-  // Jika berpindah ke tab Pemeran & Kru setelah halaman awal terbuka, gunakan tirai penutup singkat
   if (currentTab && currentTab !== validHash && validHash === 'cast') {
     currentTab = validHash;
     playQuickCurtainMask('Teater TujuhLima', 'Pemeran & Kru', () => {
